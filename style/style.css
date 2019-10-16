@@ -1,0 +1,113 @@
+
+body{
+    background-size: cover;
+    background-color: purple;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+}
+.video-container{
+    width: 100%;
+    
+}
+.All-Controls-Holder{
+    margin-top: -5px;
+    width:560px;
+}
+.video-Element{
+    height: 316px;
+}
+/* div{
+    max-width: 750px;
+    border: 2px solid rgba(0,0,0,0.2);
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    position: relative;
+    font-size: 0;
+    overflow: hidden;
+} */
+.progress{
+    background-color: black;
+    border: none;
+    cursor: pointer;
+}
+.progress-filled{
+    background-color: brown;
+    width: 50px;
+    background-size: contain;
+ 
+}
+.controls-holder{
+    background-color: black;
+    display: flex;
+    flex: 1;
+}
+
+.Pause-Btn{
+    background: none;
+    color: white;
+    border: none;
+    margin-left:14px;
+    cursor: pointer;
+    outline: none;
+    
+}
+input[type="range"]{
+    border-radius: 4px;
+    height: 7px;
+    width: 141px;
+}
+input[type="range"]:focus{
+background-color: #86af49;
+}
+input[type=range]::-webkit-slider-thumb {
+    height: 11px;
+    width: 11px;
+    border-radius: 50px;
+    background: #ffc600;
+    cursor: pointer;
+    -webkit-appearance: none;
+    box-shadow:0 0 2px rgba(0,0,0,0.2);
+}
+
+
+.volume{
+    margin-left: 55px;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+.Play-back-rate{
+    margin-left: 47px; 
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+.Drag-back-10s{
+    margin-left: 18px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;  
+    outline: none;
+}
+.Drag-forward-25s{
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+
+}
+
+.screen-size{
+    outline: none;
+    background: none;
+    color: white;
+     cursor: pointer;
+     border: none;
+     margin-left: 3px;
+}

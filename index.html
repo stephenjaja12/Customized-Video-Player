@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Html Custom vide Player</title>
+        <link rel="stylesheet" href="style/style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="player">
+            <video id="video" class ="video-Element" autoplay>
+                <source src="video/tester.mp4" type="video/mp4">
+            </video>
+            <div class="All-Controls-Holder">
+            <div class="progress">  
+                <div class="progress-filled"></div>
+            </div>
+            <div class="controls-holder">
+                <button class="Pause-Btn">►</button>
+                <input name="volume" min="0" max="50" value="25" class="volume"  type="range"> 
+                <input name="Play-back-rate" max="2" min="0.5" value="1" type="range" class="Play-back-rate" value="1">
+                <button class="screen-size"> &#10138;</button>
+                <button data-skip="10" class="Drag-back-10s">«10s</button>
+                <button data-skip="25" class="Drag-forward-25s">25s»</button>
+            </div>
+            </div>
+        </div>
+
+        <script>
+
+            //Get all your Elements
+            const playerContainer = document.querySelector('.player');
+            const vid = playerContainer.querySelector('.video-Element');
+            const progress = playerContainer.querySelector('.progress-filled');
+            const pauseBtn = playerContainer.querySelector('.Pause-Btn');
+            const skippers = playerContainer.querySelectorAll('[data-skip]');
+            const  inputControls = playerContainer.querySelectorAll('[type ="range"]');
+            const screenSizer = playerContainer.querySelector('.screen-size');
+            const body = document.getElementsByTagName('body');
+        
+            
+            
+            //All functions
+
+            //functions to manipulate your play and pause
+            function playVideo(){
+                    if( vid.paused ) {
+                    vid.play();
+                }
+                    else{
+                    vid.pause();
+                }
+             
+            }
+
+            //function to change the pauseBtn Icon with play and pause event on the vidoe element 
+            function updateBtn(){
+                const icon =  this.paused ? '►': '❚ ❚';
+                pauseBtn.textContent =  icon;
+            }
+
+            //this handles the skiping of both data set attributes depending on what is clicked
+            function skip(){
+                vid.currentTime += parseFloat(this.dataset.skip);//parseFloat returns a number value of a string inclusive of decimal places  
+            }
+
+            //this handles the increase and the decraese of the volume
+            function volumeChanger(){
+                 vid[this.name] = this.value; 
+                }
+        
+            //this handles the increase of the width of the progress bar
+            function progressBar() {
+                var vidCurrentPosition =  (vid.currentTime/vid.duration)*100;//this holds the current position where the video playing has reached
+                progress.style.width = `${vidCurrentPosition}%`;
+            }
+
+            // this handles the click of our progress to update our video current time
+            function scrub (e){
+             //distance from the left of the clicked point/the width of the element inclusive of border and padding*video duration
+                const scrubTime = (e.offsetX/progress.offsetWidth)*vid.duration;
+                console.log(scrubTime);
+                vid.currentTime = scrubTime;
+            }
+            
+            let isFullScreen = false;
+            //this handles the screen size  we will do this in the recent of edtion of our software
+
+            // function screenSizeHandler(){
+            //     var w = window.innerWidth;
+            //     var h = window.innerHeight;
+
+                
+            //     video.style.display = 'block';
+            //     video.style.height = `${h}px`;
+            //     video.style.width = `${w}px`;
+            //     isFullScreen != isFullScreen;
+            //     if(isFullScreen){
+            //         console.log('full Sccreen');
+            //     }
+                
+            //     }
+                
+                 
+            //add your event listeners
+
+            //event listeners for video element
+            vid.addEventListener('click', playVideo);
+            vid.addEventListener('play', updateBtn);
+            vid.addEventListener('pause', updateBtn);
+            vid.addEventListener('timeupdate', progressBar);//this  event fires one the is played and the currentTime Updates
+            
+            //event listener for pause Button
+            pauseBtn.addEventListener('click', playVideo);
+
+             //event listener for skip buuttons
+            skippers.forEach( skipper =>  skipper.addEventListener('click', skip) );
+
+             //event listener for  all Inputs
+            inputControls.forEach( inputControl  =>  inputControl.addEventListener('input', volumeChanger));
+
+             //event listener for video progress bar
+            progress.addEventListener('click', scrub);
+
+            let mouseDown = false; 
+            progress.addEventListener( 'mousemove', (e) => mouseDown && scrub(e) );
+            progress.addEventListener( 'mouseup', () => mouseDown = false );
+            progress.addEventListener( 'mousedown', () => mouseDown = true );
+
+            //event listener for the screen size btn
+            screenSizer.addEventListener('click', screenSizeHandler);
+           
+            
+        </script>
+    </body>
+
+</html>
